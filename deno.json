@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "lib": ["deno.ns", "deno.unstable", "dom", "dom.iterable", "dom.asynciterable"]
+  }
+}
