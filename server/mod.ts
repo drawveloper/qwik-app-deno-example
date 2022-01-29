@@ -72,20 +72,36 @@ app.use(async (context, next) => {
   context.response.headers.set("X-Response-Time", `${ms}ms`);
 });
 
+const router = new Router();
+
+router.get("/", (context) => {
+  console.log('con2', context)
+  context.response.body = "oi"
+})
+
+app.use(router.routes());
+app.use(router.allowedMethods())
+
 const __dirname = new URL('.', import.meta.url).pathname;
-const root = join(__dirname, '..', 'public');
-console.log(root)
+const root = join(__dirname, '..');
 
 // Send static content
-const publicRoute = new Router({ prefix: "/public" });
-publicRoute
-  .get("/", (context) => {
-      context.send({
-        root,
-      });
-  });
+app.use(async (context, next) => {
+  if (context.request.url.pathname.startsWith("/public")) { 
+    console.log('got to static', context.request, 'root', root)
+    try {
+        await context.send({ root })
+    } catch {
+        next()
+    }
+  }
+})
 
-app.use(publicRoute.routes());
+// Page not found
+app.use((context) => {
+  context.response.status = Status.NotFound
+  context.response.body = `"${context.request.url}" not found`
+})
 
 // Optionally server Partytown if found.
 // const partytownDir = join(__dirname, '..', 'node_modules', '@builder.io', 'partytown', 'lib');
@@ -102,14 +118,14 @@ app.use(publicRoute.routes());
 //   });
 // }
 
-app.use(async function handleQwik(context) {
-  const result = await renderApp({
-    symbols,
-    url: context.request.url,
-    debug: true,
-  });
-  context.response.body = result.html;
-});
+// app.use(async function handleQwik(context) {
+//   const result = await renderApp({
+//     symbols,
+//     url: context.request.url,
+//     debug: true,
+//   });
+//   context.response.body = result.html;
+// });
 
 app.addEventListener('listen', () => {
   console.log(`Listening on localhost:${PORT}`);
