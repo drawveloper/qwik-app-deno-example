@@ -1,6 +1,5 @@
 import { Application, HttpError, Status, Router } from "https://deno.land/x/oak/mod.ts";
 import { join } from "https://deno.land/std@0.123.0/path/mod.ts"
-// import { exists } from "https://deno.land/std@0.123.0/fs/mod.ts";
 import { renderApp } from "../src/index.server.tsx";
 import symbols from "./build/q-symbols.json" assert { type: 'json' };
 import {
@@ -73,29 +72,32 @@ app.use(async (context, next) => {
 });
 
 const router = new Router();
+const __dirname = new URL('.', import.meta.url).pathname;
+const root = join(__dirname, '..');
 
 router.get("/", (context) => {
-  console.log('con2', context)
-  context.response.body = "oi"
+  console.log('con2', context);
+  context.response.body = "oi";
+})
+
+router.get("/public/(.*)", async (context) => {
+  console.log('got to static', context.request, 'root', root);
+  await context.send({ root });
 })
 
 app.use(router.routes());
 app.use(router.allowedMethods())
 
-const __dirname = new URL('.', import.meta.url).pathname;
-const root = join(__dirname, '..');
-
 // Send static content
-app.use(async (context, next) => {
-  if (context.request.url.pathname.startsWith("/public")) { 
-    console.log('got to static', context.request, 'root', root)
-    try {
-        await context.send({ root })
-    } catch {
-        next()
-    }
-  }
-})
+// app.use(async (context, next) => {
+//   if (context.request.url.pathname.startsWith("/public")) { 
+//     try {
+//         await context.send({ root })
+//     } catch {
+//         next()
+//     }
+//   }
+// })
 
 // Page not found
 app.use((context) => {
