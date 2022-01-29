@@ -1,4 +1,4 @@
-import { Application, HttpError, Status } from "https://deno.land/x/oak/mod.ts";
+import { Application, HttpError, Status, Router } from "https://deno.land/x/oak/mod.ts";
 import { join } from "https://deno.land/std@0.123.0/path/mod.ts"
 // import { exists } from "https://deno.land/std@0.123.0/fs/mod.ts";
 import { renderApp } from "../src/index.server.tsx";
@@ -76,12 +76,16 @@ const __dirname = new URL('.', import.meta.url).pathname;
 const root = join(__dirname, '..', 'public');
 console.log(root)
 
-// // Send static content
-// app.use(async (context) => {
-//   await context.send({
-//     root,
-//   });
-// });
+// Send static content
+const publicRoute = new Router({ prefix: "/public" });
+publicRoute
+  .get("/", (context) => {
+      context.send({
+        root,
+      });
+  });
+
+app.use(publicRoute.routes());
 
 // Optionally server Partytown if found.
 // const partytownDir = join(__dirname, '..', 'node_modules', '@builder.io', 'partytown', 'lib');
