@@ -74,14 +74,14 @@ app.use(async (context, next) => {
 
 const __dirname = new URL('.', import.meta.url).pathname;
 const root = join(__dirname, '..', 'public');
+console.log(root)
 
-// Send static content
-app.use(async (context) => {
-  await context.send({
-    root,
-    index: "index.html",
-  });
-});
+// // Send static content
+// app.use(async (context) => {
+//   await context.send({
+//     root,
+//   });
+// });
 
 // Optionally server Partytown if found.
 // const partytownDir = join(__dirname, '..', 'node_modules', '@builder.io', 'partytown', 'lib');

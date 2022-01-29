@@ -2,12 +2,12 @@ import {
   Fragment,
   h,
   Host,
-  qComponent,
+  component,
   onRender,
   useStore,
   useHostElement,
   useEvent,
-} from 'https://esm.sh/@builder.io/qwik';
+} from '@builder.io/qwik';
 import {
   addItem,
   clearCompleted,
@@ -40,7 +40,7 @@ import {
  * Qwik knows that it should never need to be rerendered, and its code will never
  * download to the client.
  */
-export const ToDoApp = qComponent('todo', (props: { todos: Todos }) => {
+export const ToDoApp = component('todo', (props: { todos: Todos }) => {
   return onRender(() => {
     console.log('on:qRender => <ToDoApp/>');
     return (
@@ -58,7 +58,7 @@ export const ToDoApp = qComponent('todo', (props: { todos: Todos }) => {
  *
  * This component only rerenders if the user interacts with it through the input.
  */
-export const Header = qComponent('header', (props: { todos: Todos }) => {
+export const Header = component('header', (props: { todos: Todos }) => {
   const state = useStore({ text: '' });
   return onRender(() => {
     console.log('on:qRender => <Header/>');
@@ -90,7 +90,7 @@ export const Header = qComponent('header', (props: { todos: Todos }) => {
  *
  * This component only rerenders/hydrates/downloads if the list of todos changes.
  */
-export const Main = qComponent('main', (props: { todos: Todos }) => {
+export const Main = component('main', (props: { todos: Todos }) => {
   return onRender(() => {
     console.log('on:qRender => <Main/>');
     return (
@@ -110,7 +110,7 @@ export const Main = qComponent('main', (props: { todos: Todos }) => {
  *
  * It only rerenders if the user infarcts with it or if the item itself changes.
  */
-export const Item = qComponent('li', (props: { item: TodoItem; todos: Todos }) => {
+export const Item = component('li', (props: { item: TodoItem; todos: Todos }) => {
   const state = useStore({ editing: false });
   return onRender(() => {
     console.log(
@@ -166,7 +166,7 @@ export const Item = qComponent('li', (props: { item: TodoItem; todos: Todos }) =
  *
  * It only rerenders if the todos count changes or filters are reset.
  */
-export const Footer = qComponent('footer', (props: { todos: Todos }) => {
+export const Footer = component('footer', (props: { todos: Todos }) => {
   return onRender(() => {
     console.log('on:qRender => <Footer/>');
     /**
