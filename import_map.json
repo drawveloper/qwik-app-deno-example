@@ -1,9 +1,9 @@
 {
     "imports": {
-       "@builder.io/qwik": "https://unpkg.com/browse/@builder.io/qwik@0.0.16-5/core.mjs",
-       "@builder.io/qwik/jsx-runtime": "https://unpkg.com/browse/@builder.io/qwik@0.0.16-5/jsx-runtime.mjs",
-       "@builder.io/qwik/optimizer": "https://unpkg.com/browse/@builder.io/qwik@0.0.16-5/optimizer.mjs",
-       "@builder.io/qwik/server": "https://unpkg.com/browse/@builder.io/qwik@0.0.16-5/server/index.mjs",
-       "@builder.io/qwik/testing": "https://unpkg.com/browse/@builder.io/qwik@0.0.16-5/testing/index.mjs"
+       "@builder.io/qwik": "https://unpkg.com/@builder.io/qwik@0.0.16-5/core.mjs",
+       "@builder.io/qwik/jsx-runtime": "https://unpkg.com/@builder.io/qwik@0.0.16-5/jsx-runtime.mjs",
+       "@builder.io/qwik/optimizer": "https://unpkg.com/@builder.io/qwik@0.0.16-5/optimizer.mjs",
+       "@builder.io/qwik/server": "https://unpkg.com/@builder.io/qwik@0.0.16-5/server/index.mjs",
+       "@builder.io/qwik/testing": "https://unpkg.com/@builder.io/qwik@0.0.16-5/testing/index.mjs"
     }
  }
