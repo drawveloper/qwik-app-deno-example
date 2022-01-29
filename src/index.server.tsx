@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://github.com/BuilderIO/qwik/blob/main/LICENSE
  */
 
-import { h } from "https://esm.sh/@builder.io/qwik";
-import { renderToString, RenderToStringOptions, QwikLoader } from 'https://esm.sh/@builder.io/qwik/server';
+import { h } from "@builder.io/qwik";
+import { renderToString, RenderToStringOptions, QwikLoader } from '@builder.io/qwik/server';
 import { ToDoApp } from './components.tsx';
 import type { Todos } from './state.ts';
 

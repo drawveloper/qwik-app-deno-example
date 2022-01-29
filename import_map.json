@@ -1,0 +1,10 @@
+{
+    "imports": {
+       "fmt/": "https://deno.land/std@0.123.0/fmt/",
+       "@builder.io/qwik": "../qwik/src/core/index.ts",
+       "@builder.io/qwik/jsx-runtime": "../qwik/src/jsx-runtime.ts",
+       "@builder.io/qwik/optimizer": "../qwik/src/optimizer/src/index.ts",
+       "@builder.io/qwik/server": "../qwik/src/server/index.ts",
+       "@builder.io/qwik/testing": "../qwik/src/testing/index.ts"
+    }
+ }
