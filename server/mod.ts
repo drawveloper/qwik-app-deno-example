@@ -73,61 +73,33 @@ app.use(async (context, next) => {
 
 const router = new Router();
 const __dirname = new URL('.', import.meta.url).pathname;
-const root = join(__dirname, '..');
+const root = join(__dirname, '..', 'public');
 
-router.get("/", (context) => {
-  console.log('con2', context);
-  context.response.body = "oi";
-})
-
-router.get("/public/(.*)", async (context) => {
-  console.log('got to static', context.request, 'root', root);
-  await context.send({ root });
+router.get("/", async function handleQwik(context) {
+  console.log('got to qwik', context.request.url.pathname)
+  const result = await renderApp({
+    symbols,
+    url: context.request.url,
+    debug: true,
+  });
+  context.response.body = result.html;
 })
 
 app.use(router.routes());
 app.use(router.allowedMethods())
 
-// Send static content
-// app.use(async (context, next) => {
-//   if (context.request.url.pathname.startsWith("/public")) { 
-//     try {
-//         await context.send({ root })
-//     } catch {
-//         next()
-//     }
-//   }
-// })
+// Static content
+app.use(async (context) => {
+  console.log('got to static', context.request.url.pathname);
+  await context.send({ root });
+})
 
 // Page not found
 app.use((context) => {
+  console.log('got to not found', context.request.url.pathname);
   context.response.status = Status.NotFound
   context.response.body = `"${context.request.url}" not found`
 })
-
-// Optionally server Partytown if found.
-// const partytownDir = join(__dirname, '..', 'node_modules', '@builder.io', 'partytown', 'lib');
-// if (exists(partytownDir)) {
-//   app.use(async (context, next) => {
-//     if (!context.request.url.pathname.startsWith("/~partytown")) {
-//       await next();
-//       return
-//     }
-//     await context.send({
-//       root,
-//       index: "index.html",
-//     });
-//   });
-// }
-
-// app.use(async function handleQwik(context) {
-//   const result = await renderApp({
-//     symbols,
-//     url: context.request.url,
-//     debug: true,
-//   });
-//   context.response.body = result.html;
-// });
 
 app.addEventListener('listen', () => {
   console.log(`Listening on localhost:${PORT}`);

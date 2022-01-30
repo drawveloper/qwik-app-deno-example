@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run clean && rollup -c",
     "clean": "rimraf */build/",
-    "serve": "node server/index.js",
+    "serve": "vr start",
     "start": "npm run clean && concurrently -c blue,green \"rollup -c --configDev --watch\" \"wait-on public/build && npm run serve\""
   },
   "devDependencies": {

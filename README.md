@@ -1,3 +1,11 @@
 Almost there!
 
-`deno run --allow-net --import-map=import_map.json --allow-read --allow-env --unstable --no-check server/mod.ts`
+First, install velociraptor: 
+
+`deno install --no-check -qAn vr https://x.nest.land/velociraptor@1.4.0/cli.ts`
+
+Then
+
+`npm start`
+
+This starts rollup and the deno server.
