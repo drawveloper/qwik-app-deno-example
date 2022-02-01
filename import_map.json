@@ -1,9 +1,9 @@
 {
     "imports": {
-       "@builder.io/qwik": "../qwik/dist-dev/@builder.io-qwik/core.mjs",
-       "@builder.io/qwik/jsx-runtime": "../qwik/dist-dev/@builder.io-qwik/jsx-runtime.mjs",
-       "@builder.io/qwik/optimizer": "../qwik/dist-dev/@builder.io-qwik/optimizer.mjs",
-       "@builder.io/qwik/server": "../qwik/dist-dev/@builder.io-qwik/server/index.mjs",
-       "@builder.io/qwik/testing": "../qwik/dist-dev/@builder.io-qwik/testing/index.mjs"
+       "@builder.io/qwik": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/core.mjs",
+       "@builder.io/qwik/jsx-runtime": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/jsx-runtime.mjs",
+       "@builder.io/qwik/optimizer": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/optimizer.mjs",
+       "@builder.io/qwik/server": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/server/index.mjs",
+       "@builder.io/qwik/testing": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/testing/index.mjs"
     }
  }
