@@ -1,6 +1,6 @@
 {
   "$schema": "https://deno.land/x/denon/schema.json",
   "scripts": {
-    "start": "deno run --import-map=import_map.json --allow-net --allow-read --allow-env --unstable server/mod.ts"
+    "start": "deno run --import-map=import_map.json --config ./deno.json --allow-net --allow-read --allow-env --unstable server/mod.ts"
   }
 }

@@ -35,7 +35,7 @@ export function renderApp(opts: RenderToStringOptions) {
       </head>
       <body q:base="/build/">
         <ToDoApp todos={todos} />
-        <QwikLoader debug={opts.debug} />
+        <QwikLoader debug={opts.debug} events={null} />
       </body>
     </html>,
     opts
