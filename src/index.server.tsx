@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://github.com/BuilderIO/qwik/blob/main/LICENSE
  */
 
-import { h, Fragment } from "@builder.io/qwik";
-import { renderToString, RenderToStringOptions, QwikLoader } from '@builder.io/qwik/server';
-import { ToDoApp } from './components.tsx';
+// import { h, Fragment } from "@builder.io/qwik";
+import { renderToString, RenderToStringOptions } from '@builder.io/qwik/server';
+// import { ToDoApp } from './components.tsx';
 import type { Todos } from './state.ts';
 
 /**
@@ -34,8 +34,8 @@ export function renderApp(opts: RenderToStringOptions) {
         <link rel="stylesheet" href="/index.css" />
       </head>
       <body q:base="/build/">
-        <ToDoApp todos={todos} />
-        <QwikLoader debug={opts.debug} events={null} />
+        {/* <ToDoApp todos={todos} />
+        <QwikLoader debug={opts.debug} events={null} /> */}
       </body>
     </html>,
     opts
