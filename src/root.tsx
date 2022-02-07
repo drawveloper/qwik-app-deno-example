@@ -16,7 +16,7 @@ export const Root = component$(() => {
           />
         </a>
       </p>
-      <p>Congratulations Qwik is working! 123</p>
+      <p>Congratulations Qwik is working!</p>
 
       <p>Next steps:</p>
       <ol>

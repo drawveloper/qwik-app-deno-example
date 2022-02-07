@@ -9,7 +9,7 @@
     "dev": "vite",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
-    "serve": "node server/index.js",
+    "serve": "denon start",
     "start": "npm run dev"
   },
   "devDependencies": {
