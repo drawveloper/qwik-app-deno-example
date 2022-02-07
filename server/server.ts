@@ -23,5 +23,5 @@ async function handler (request: Request): Promise<Response> {
   return new Response('404', { status: 404 })
 }
 
-console.log(`HTTP webserver running. Access it at: http://localhost:8080/`)
+console.log(`Listening at http://localhost:8080/`)
 await serve(handler, { addr })

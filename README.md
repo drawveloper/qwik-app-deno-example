@@ -76,3 +76,12 @@ Ideally, we would be able to just select `format` outright.
 
 After changing this in `node_modules`, we were able to run Qwik from Deno! 🥳
 
+## Added patch script to allow CI 
+
+> "Nothing more permanent then a temporary fix"
+
+```
+deno run --allow-read --allow-write HACK__patch_vite.ts 
+```
+
+This makes the change vite needs to output es modules. Yay? 

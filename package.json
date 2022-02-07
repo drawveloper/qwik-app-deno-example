@@ -10,7 +10,8 @@
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "serve": "denon start",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "postinstall": "deno run --allow-read --allow-write HACK__patch_vite.ts"
   },
   "devDependencies": {
     "@builder.io/qwik": "0.0.16-10",
