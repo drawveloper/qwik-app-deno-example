@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Blank starter app",
   "scripts": {
-    "build": "npm run build.client && npm run build.server",
+    "build": "npm run build.server && npm run build.client",
     "build.client": "vite build",
     "build.server": "vite build --outDir server/build --ssr src/entry.server.tsx",
     "dev": "vite",

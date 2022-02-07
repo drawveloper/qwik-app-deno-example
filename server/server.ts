@@ -1,27 +1,125 @@
-import { serve } from 'https://deno.land/std@0.116.0/http/server.ts'
+import {
+  Application,
+  HttpError,
+  Router,
+  Status,
+} from "https://deno.land/x/oak/mod.ts";
+import {
+  bold,
+  cyan,
+  green,
+  red,
+} from "https://deno.land/std@0.122.0/fmt/colors.ts";
+import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
 
-import { render } from './build/entry.server.js';
-import symbols  from './q-symbols.json' assert {type: "json"};
+import { render } from "./build/entry.server.js";
+import symbols from "./q-symbols.json" assert { type: "json" };
 
-const addr = ':8080'
+const PORT = Deno.env.get("PORT") || 8080;
+const __dirname = new URL(".", import.meta.url).pathname;
+const distFolderPath = join(__dirname, "..", "dist");
 
-async function renderApp(request: Request) {
-    const result = await render({
-      symbols,
-      url: new URL(request.url),
-      debug: true,
-    });
-    return result;
+const app = new Application();
+
+// Error handler middleware
+app.use(async (context, next) => {
+  try {
+    await next();
+  } catch (e) {
+    if (e instanceof HttpError) {
+      // deno-lint-ignore no-explicit-any
+      context.response.status = e.status as any;
+      if (e.expose) {
+        context.response.body = `<!DOCTYPE html>
+            <html>
+              <body>
+                <h1>${e.status} - ${e.message}</h1>
+              </body>
+            </html>`;
+      } else {
+        context.response.body = `<!DOCTYPE html>
+            <html>
+              <body>
+                <h1>${e.status} - ${Status[e.status]}</h1>
+              </body>
+            </html>`;
+      }
+    } else if (e instanceof Error) {
+      context.response.status = 500;
+      context.response.body = `<!DOCTYPE html>
+            <html>
+              <body>
+                <h1>500 - Internal Server Error</h1>
+              </body>
+            </html>`;
+      console.log("Unhandled Error:", red(bold(e.message)));
+      console.log(e.stack);
+    }
   }
+});
 
-async function handler (request: Request): Promise<Response> {
-  if (request.url === 'http://localhost:8080/') {
-    const result = await renderApp(request)
-    return new Response(result.html, { headers: { 'Content-Type': 'text/html' } })
+// Logger
+app.use(async (context, next) => {
+  await next();
+  const rt = context.response.headers.get("X-Response-Time");
+  console.log(
+    `${green(context.request.method)} ${cyan(context.request.url.pathname)} - ${
+      bold(
+        String(rt),
+      )
+    }`,
+  );
+});
+
+// Response Time
+app.use(async (context, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  context.response.headers.set("X-Response-Time", `${ms}ms`);
+});
+
+// Create an oak Router
+const router = new Router();
+
+router.get("/", async (context) => {
+  console.log(
+    ">>> qwik",
+    context.request.url.pathname,
+  );
+
+  const start = Date.now();
+
+  const result = await render({
+    symbols,
+    url: context.request.url,
+    debug: false,
+  });
+
+  const ms = Date.now() - start;
+  context.response.headers.set("X-Render-Time", `${ms}ms`);
+  console.log(`>>> render complete in ${ms}ms`)
+
+  context.response.body = result.html;
+});
+
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+// Static content under /dist
+app.use(async (context) => {
+  console.log(">>> static /dist", context.request.url.pathname);
+  try {
+    await context.send({ root: distFolderPath });
+  } catch (e) {
+    console.log(e)
   }
+});
 
-  return new Response('404', { status: 404 })
-}
+// Log hello
+app.addEventListener("listen", () => {
+  console.log(`Listening on ${cyan(`http://localhost:${PORT}`)}`);
+});
 
-console.log(`Listening at http://localhost:8080/`)
-await serve(handler, { addr })
+// Start server
+await app.listen({ port: 8080 });

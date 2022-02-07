@@ -22,6 +22,7 @@ export default defineConfig({
         type: 'single',
       },
       symbolsOutput: (data) => {
+        console.log('symbols', data)
         outputJSON('./server/q-symbols.json', data);
       },
     }),
