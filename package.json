@@ -1,24 +1,26 @@
 {
-  "name": "qwik-app",
+  "name": "qwik-app-deno",
   "version": "0.0.1",
-  "description": "Classic Todo MVC app",
+  "description": "Blank starter app",
   "scripts": {
-    "build": "npm run clean && rollup -c",
-    "clean": "rimraf */build/",
-    "serve": "denon start",
-    "start": "npm run clean && concurrently -c blue,green \"rollup -c --configDev --watch\" \"wait-on public/build && npm run serve\""
+    "build": "npm run build.client && npm run build.server",
+    "build.client": "vite build",
+    "build.server": "vite build --outDir server/build --ssr src/entry.server.tsx",
+    "dev": "vite",
+    "fmt": "prettier --write .",
+    "fmt.check": "prettier --check .",
+    "serve": "node server/index.js",
+    "start": "npm run dev"
   },
   "devDependencies": {
-    "@builder.io/qwik": "0.0.16-7",
-    "@rollup/plugin-node-resolve": "^13.0.6",
-    "@rollup/plugin-typescript": "^8.3.0",
-    "concurrently": "^6.4.0",
-    "express": "~4.17.1",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.59.0",
-    "rollup-plugin-terser": "^7.0.2",
+    "@builder.io/qwik": "0.0.16-10",
+    "autoprefixer": "10.4.2",
+    "express": "4.17.2",
+    "postcss": "8.4.6",
+    "prettier": "2.3.0",
+    "tailwindcss": "3.0.18",
     "typescript": "^4.5.2",
-    "wait-on": "^6.0.0"
+    "vite": "2.7.13"
   },
   "author": "Builder.io Team",
   "license": "MIT",

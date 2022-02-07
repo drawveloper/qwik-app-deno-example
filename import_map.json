@@ -1,9 +1,8 @@
 {
-    "imports": {
-       "@builder.io/qwik": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/core.mjs",
-       "@builder.io/qwik/jsx-runtime": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/jsx-runtime.mjs",
-       "@builder.io/qwik/optimizer": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/optimizer.mjs",
-       "@builder.io/qwik/server": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/server/index.mjs",
-       "@builder.io/qwik/testing": "https://cdn.esm.sh/@builder.io/qwik@0.0.16-7/testing/index.mjs"
-    }
- }
+  "imports": {
+    "@builder.io/qwik": "./node_modules/@builder.io/qwik/core.mjs",
+    "@builder.io/qwik/jsx-runtime": "./node_modules/@builder.io/qwik/jsx-runtime.mjs",
+    "@builder.io/qwik/server": "./node_modules/@builder.io/qwik/server/index.mjs",
+    "@builder.io/qwik/optimizer": "./node_modules/@builder.io/qwik/optimizer.mjs"
+  }
+}
