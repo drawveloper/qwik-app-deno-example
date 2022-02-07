@@ -68,4 +68,11 @@ But the `./build/entry/server.js` is **not an ESModule**, which is what Deno sup
 There should be a way to output `.mjs` ES Modules from the qwik rollup. I tried fiddling with the `optimizer` in my node_modules, to no avail. Nothing I changed resulted in the module being outputted as esm. Tried the `esbuild.platform` config too. 
 
 
+## After debug session with Manu from Qwik
+
+We found out `vite` is not allowing us to have `esm` built if we're in `ssr`: https://github.com/vitejs/vite/blob/2a9da2e3b10e3637f7ed7daa3b45cb173f40d7a3/packages/vite/src/node/build.ts#L467
+
+Ideally, we would be able to just select `format` outright. 
+
+After changing this in `node_modules`, we were able to run Qwik from Deno! 🥳
 
