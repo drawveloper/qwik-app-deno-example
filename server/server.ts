@@ -3,6 +3,7 @@ import {
   HttpError,
   Router,
   Status,
+  httpErrors
 } from "https://deno.land/x/oak/mod.ts";
 import {
   bold,
@@ -15,9 +16,10 @@ import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import { render } from "./build/entry.server.js";
 import symbols from "./q-symbols.json" assert { type: "json" };
 
-const PORT = Deno.env.get("PORT") || 8080;
+const PORT = parseInt(Deno.env.get("PORT") || "8080");
 const __dirname = new URL(".", import.meta.url).pathname;
 const distFolderPath = join(__dirname, "..", "dist");
+const publicFolderPath = join(__dirname, "..", "public");
 
 const app = new Application();
 
@@ -63,7 +65,7 @@ app.use(async (context, next) => {
   await next();
   const rt = context.response.headers.get("X-Response-Time");
   console.log(
-    `${green(context.request.method)} ${cyan(context.request.url.pathname)} - ${
+    `${green(context.response.status.toString())} ${green(context.request.method)} ${cyan(context.request.url.pathname)} - ${
       bold(
         String(rt),
       )
@@ -106,13 +108,18 @@ router.get("/", async (context) => {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-// Static content under /dist
+// Static content under /dist or /public
 app.use(async (context) => {
-  console.log(">>> static /dist", context.request.url.pathname);
+  console.log(`>>> static try /dist${context.request.url.pathname}`);
   try {
     await context.send({ root: distFolderPath });
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    if (err instanceof httpErrors.NotFound) {
+      console.log(`>>> static try /public${context.request.url.pathname}`)
+      await context.send({ root: publicFolderPath });
+    } else {
+      throw err
+    }
   }
 });
 
@@ -122,4 +129,4 @@ app.addEventListener("listen", () => {
 });
 
 // Start server
-await app.listen({ port: 8080 });
+await app.listen({ port: PORT });
