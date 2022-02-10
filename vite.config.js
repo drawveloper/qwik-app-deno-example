@@ -10,6 +10,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
+        'format': isServerBuild ? 'esm' : undefined,
         chunkFileNames: 'q-[hash].js',
         assetFileNames: 'q-[hash].[ext]',
       },
