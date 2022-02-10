@@ -22,7 +22,7 @@
     "typescript": "^4.5.2",
     "vite": "2.7.13"
   },
-  "author": "Builder.io Team",
+  "author": "Guilherme Rodrigues",
   "license": "MIT",
   "engines": {
     "node": ">=14.14.0"

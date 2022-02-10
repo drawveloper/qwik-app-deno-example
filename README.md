@@ -1,8 +1,8 @@
-# Server-side Qwik on Deno
+# Server-side Qwik on Deno (& Tailwind)
 
 This is a working example of a Qwik app with server-side rendering and static asset serving performed by Deno, deployable to Deno Deploy.
 
-A simpler, Deno example running JSX can be found here using `jsxImportSource`, for reference: https://github.com/firstdoit/nano-jsx-denon-live-reload
+If you want a simpler JSX-on-Deno stack, you should try `nano-jsx`: https://github.com/FutureDrivenDev/nano-jsx-denon-live-reload
 
 ## How it works
 
@@ -31,9 +31,9 @@ And an import map at `import_map.json` to help deno understand the qwik imports:
 }
 ```
 
-Then, we create a `server/server.ts` which is supposed to **replace** the original `server/index.js` (which is an Express server in the node example).
+Then, we create a `server/server.ts` which is supposed to **replace** the original `server/index.js` (an Express server in the node example).
 
-Then, `npm install`, `npm build` to build the Qwik files, and run deno:
+Then, `npm install`, `npm build` to build the Qwik files, and finally run `deno`:
 
 - If you use `denon`, simply `denon start`
 - Else, run: `deno run --import-map=import_map.json --config ./deno.json --allow-net --allow-read --allow-env --unstable --no-check server/server.ts`
@@ -43,3 +43,5 @@ And it works :) welcome to Qwik on Deno!
 # Compatible with Deno Deploy
 
 Simply select the `server/server.ts` file as an entrypoint and you've got yourself a Qwik app powered by Deno **on the edge.** 💥
+
+PS: You have to build and commit the dist files so Deno Deploy can use them. Qwik build is so tiny, it makes little difference.
